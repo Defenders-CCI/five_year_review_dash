@@ -22,7 +22,7 @@ library(shiny)
 library(shinydashboard)
 library(tidyverse)
 
-# "https://ecos.fws.gov/ecp/pullreports/catalog/species/report/species/export?format=csv&distinct=true&columns=%2Fspecies%40sn%2Ccn%2Cstatus%2Cdesc%2Clisting_date%2Ccountry&sort=%2Fspecies%40cn%20asc%3B%2Fspecies%40sn%20asc%3B%2Fspecies%40country%20desc&filter=%2Fspecies%40status%20in%20('Endangered'%2C'Threatened')&filter=%2Fspecies%40country%20!%3D%20'Foreign'"
+# "https://ecos.fws.gov/ecp/pullreports/catalog/species/report/species/export?format=csv&distinct=true&columns=%2Fspecies%40sn%2Ccn%2Cstatus%2Cdesc%2Clisting_date%2Ccountry%3B%2Fspecies%2Ftaxonomy%40group%3B%2Fspecies%2Ffws_region%40desc&sort=%2Fspecies%40sn%20asc&filter=%2Fspecies%40country%20!%3D%20'Foreign'&filter=%2Fspecies%40status%20in%20('Endangered'%2C'Threatened')"
 list <- read_csv("ESA_listed.csv")
 names(list) <- c("scientific", "sci_url", "common", "status", "entity", 
                 "listing_date", "foreign", "taxon", "region")
@@ -120,7 +120,6 @@ renderPlotly({
     layout(barmode = "overlay",
            xaxis = list(title = "Date of review"),
            yaxis = list(title = "Number of reviews"))
-  
 })
 ```
 
