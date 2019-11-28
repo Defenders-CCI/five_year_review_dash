@@ -116,7 +116,7 @@ renderPlotly({
                   nbinsx = nbins * 2,
                   xbins = list(start = min(uniq_fiveyr$fiveyr_date),
                                end = max(uniq_fiveyr$fiveyr_date)),
-                  name = "Selected") %>%
+                  name = "Filtered") %>%
     layout(barmode = "overlay",
            xaxis = list(title = "Date of review"),
            yaxis = list(title = "Number of reviews"))
