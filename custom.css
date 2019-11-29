@@ -136,7 +136,13 @@ a:visited {
 }
 
 .bg-info {
-  background-color: #8E4E8A;
+  background-color: #003B87;
+  color: white;
+  /* background-color: #8E4E8A; */
+}
+
+.bg-info > * > p {
+  color: white;
 }
 
 .bg-success {
