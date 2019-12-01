@@ -111,18 +111,6 @@ vline <- function(x = 0, color = "rgba(0,0,0,0.3)") {
   )
 }
 
-annota <- list(
-  x = (Sys.Date() - years(5)) + 220,
-  y = 210,
-  text = "Five years past",
-  xref = "x",
-  yref = "y",
-  showarrow = FALSE,
-  font = list(color = "rgba(0,0,0,0.3)",
-              family = 'sans serif',
-              size = 16)
-)
-
 renderPlotly({
   cur <- uniq_sel()
   nbins <- year(uniq_fiveyr$fiveyr_date) %>% unique() %>% length() 
@@ -143,7 +131,6 @@ renderPlotly({
                                end = max(uniq_fiveyr$fiveyr_date)),
                   name = "Filtered") %>%
     layout(shapes = list(vline(Sys.Date() - years(5)))) %>%
-    # add_annotations(annota) %>%
     add_annotations(x = (Sys.Date() - years(4)),
                     y = 210,
                     text = "Five years past",
