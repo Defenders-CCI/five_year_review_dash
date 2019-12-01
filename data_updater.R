@@ -38,7 +38,7 @@ cur_5yr <- suppressMessages(read_csv("5yr_data.csv"))
 att3 <- try(
   fiveyr <- suppressMessages(read_csv("https://ecos.fws.gov/ecp/pullreports/catalog/species/report/species/export?format=csv&distinct=true&columns=%2Fspecies%40sn%2Ccn%2Cstatus%2Cdesc%2Clisting_date%2Ccountry%3B%2Fspecies%2Fdocument%40doc_date%2Ctitle&sort=%2Fspecies%40cn%20asc%3B%2Fspecies%40sn%20asc%3B%2Fspecies%40country%20desc&filter=%2Fspecies%40status%20in%20('Endangered'%2C'Threatened')&filter=%2Fspecies%40country%20!%3D%20'Foreign'&filter=%2Fspecies%2Fdocument%40doc_type%20%3D%20'Five%20Year%20Review'"))
 )
-if(class(attempt) == "try-error") {
+if(class(att3) == "try-error") {
   att4 <- try(
     fiveyr <- suppressMessages(read_csv("https://ecos.fws.gov/ecp/pullreports/catalog/species/report/species/export?format=csv&distinct=true&columns=%2Fspecies%40sn%2Ccn%2Cstatus%2Cdesc%2Clisting_date%2Ccountry%3B%2Fspecies%2Fdocument%40doc_date%2Ctitle&sort=%2Fspecies%40cn%20asc%3B%2Fspecies%40sn%20asc%3B%2Fspecies%40country%20desc&filter=%2Fspecies%40status%20in%20('Endangered'%2C'Threatened')&filter=%2Fspecies%40country%20!%3D%20'Foreign'&filter=%2Fspecies%2Fdocument%40doc_type%20%3D%20'Five%20Year%20Review'"))
   )
