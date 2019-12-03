@@ -75,7 +75,7 @@ usr_sel <- function(df, tx, re) {
   if(re != "All") {
     df <- filter(df, region == re)
   }
-  if(dim(df)[1] == 0) stop("No data matches.")
+  #if(dim(df)[1] == 0) stop("No data matches.")
   return(df)
 }
 
@@ -114,36 +114,57 @@ vline <- function(x = 0, color = "rgba(0,0,0,0.3)") {
 renderPlotly({
   cur <- uniq_sel()
   nbins <- year(uniq_fiveyr$fiveyr_date) %>% unique() %>% length() 
-  plot_ly(
-    data = uniq_fiveyr,
-    type = "histogram",
-    x = uniq_fiveyr$fiveyr_date,
-    marker = list(color = "rgba(0,0,0,0.2)"),
-    nbinsx = nbins * 2,
-    xbins = list(start = min(uniq_fiveyr$fiveyr_date),
-                 end = max(uniq_fiveyr$fiveyr_date)),
-    name = "All data"
-  ) %>% 
-    add_histogram(x = cur$fiveyr_date,
-                  marker = list( color = "#EA8439" ),
-                  nbinsx = nbins * 2,
-                  xbins = list(start = min(uniq_fiveyr$fiveyr_date),
-                               end = max(uniq_fiveyr$fiveyr_date)),
-                  name = "Filtered") %>%
-    layout(shapes = list(vline(Sys.Date() - years(5)))) %>%
-    add_annotations(x = (Sys.Date() - years(4)),
-                    y = 210,
-                    text = "Five years past",
-                    xref = "x",
-                    yref = "y",
-                    showarrow = FALSE,
-                    font = list(color = "rgba(0,0,0,0.1)",
-                                family = 'sans-serif',
-                                size = 18)
-      ) %>%
-    layout(barmode = "overlay",
-           xaxis = list(title = "Date of review"),
-           yaxis = list(title = "Number of reviews"))
+  if(nrow(cur) > 0) {
+    plot_ly(
+      data = uniq_fiveyr,
+      type = "histogram",
+      x = uniq_fiveyr$fiveyr_date,
+      marker = list(color = "rgba(0,0,0,0.2)"),
+      nbinsx = nbins * 2,
+      xbins = list(start = min(uniq_fiveyr$fiveyr_date),
+                   end = max(uniq_fiveyr$fiveyr_date)),
+      name = "All data"
+    ) %>% 
+      add_histogram(x = cur$fiveyr_date,
+                    marker = list( color = "#EA8439" ),
+                    nbinsx = nbins * 2,
+                    xbins = list(start = min(uniq_fiveyr$fiveyr_date),
+                                 end = max(uniq_fiveyr$fiveyr_date)),
+                    name = "Filtered") %>%
+      layout(shapes = list(vline(Sys.Date() - years(5)))) %>%
+      add_annotations(x = (Sys.Date() - years(4)),
+                      y = 210,
+                      text = "Five years past",
+                      xref = "x",
+                      yref = "y",
+                      showarrow = FALSE,
+                      font = list(color = "rgba(0,0,0,0.1)",
+                                  family = 'sans-serif',
+                                  size = 18)
+        ) %>%
+      layout(barmode = "overlay",
+             xaxis = list(title = "Date of review"),
+             yaxis = list(title = "Number of reviews"))
+  } else {
+    blank <- tibble(x = c(0), y = c(0), text = "No data match filters")
+    ax <- list(
+      title = "",
+      zeroline = FALSE,
+      showline = FALSE,
+      showticklabels = FALSE,
+      showgrid = FALSE
+    )
+    plot_ly(
+      data = blank,
+      type = "scatter",
+      mode = "text",
+      x = ~x,
+      y = ~y,
+      text = ~text,
+      textfont = list(color = '#000000', size = 22)
+    ) %>%
+      layout(xaxis = ax, yaxis = ax)
+  }
 })
 ```
 
